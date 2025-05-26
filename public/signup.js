@@ -14,7 +14,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
+const provider = new GoogleAuthProvider();
 
 
 const signUp = () => {
@@ -68,34 +68,7 @@ const signUp = () => {
 }
 
 const signInWithGoogle = () => {
-        signInWithPopup(auth, googleProvider)
-        .then((result) => {
-            const user = result.user;
-            console.log(user);
-            alert("User signed in successfully");
-            setTimeout(() => {
-                window.location.href = 'dashboard.html'
-            }, 1000)
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            console.log(errorCode);
-
-            if (errorCode === "auth/user-not-found") {
-                alert("No user found with this email.");
-            } else if (errorCode === "auth/wrong-password") {
-                alert("Incorrect password.");
-            } else if (errorCode === "auth/invalid-email") {
-                alert("Invalid email address.");
-            } else if (errorCode === "auth/too-many-requests") {
-                alert("Too many failed attempts. Try again later.");
-            } else if( errorCode === "auth/unauthorized-domain") {
-                alert("Unauthorized domain. Please check your Firebase console settings.");
-            }
-            else {
-                alert("An error occurred. Please try again.");
-            }
-        });
+    alert('working')
 }
 
 
