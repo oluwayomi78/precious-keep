@@ -39,15 +39,15 @@ const toast = (message, bgColor = "red", color = "white", fontWeight = "bold" , 
 };
 
 const signIn = () => {
-    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    if (email === "" || password === "") {
+    if (username === "" || password === "") {
         toast("Please fill in all fields");
         return;
     }
     const userObject = {
-        email: email,
+        username: username,
         password: password
     }
     console.log(userObject);

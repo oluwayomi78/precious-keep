@@ -110,7 +110,7 @@ body {
     text-align: center;
 }
 
-.social-icon a {
+.social-icon div {
     display: inline-flex;
     padding: 10px;
     border: 2px solid #ccc;
@@ -121,7 +121,7 @@ body {
     margin: 0 8px;
 }
 
-.social-icon a:hover {
+.social-icon div:hover {
     color: #7494ec;
     border-color: #7494ec;
 }
