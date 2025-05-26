@@ -38,73 +38,64 @@ const toast = (message, bgColor = "red", color = "white", fontWeight = "bold" , 
     }).showToast();
 };
 
+
 const signIn = () => {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById('mail').value;
+    const password = document.getElementById('pass').value;
 
-    if (username === "" || password === "") {
-        toast("Please fill in all fields");
-        return;
+    if (email === "" || password === "") {
+        alert('Input cannot be empty, fill it up')
     }
-    const userObject = {
-        username: username,
-        password: password
-    }
-    console.log(userObject);
+    else {
+        const userObj = { email, password }
+        console.log(userObj);
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                setInterval(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000)
+            })
+            .catch((error) => {
+                const errorCode = error.code;
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
+                if (errorCode === "auth/user-not-found") {
+                    toast("No user found with this email.");
+                } else if (errorCode === "auth/wrong-password") {
+                    toast("Incorrect password.");
+                } else if (errorCode === "auth/invalid-email") {
+                    toast("Invalid email address.");
+                } else if (errorCode === "auth/too-many-requests") {
+                    toast("Too many failed attempts. Try again later.");
+                }
+            });
+    };
+}
+
+
+const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
             console.log(user);
-            toast("User signed in successfully");
             setInterval(() => {
                 window.location.href = "dashboard.html";
-            }, 2000);
+            }, 1000)
         })
         .catch((error) => {
             const errorCode = error.code;
             console.log(errorCode);
 
-            if (errorCode === 'auth/password-does-not-meet-requirements') {
-                toast('password must contain special character, lowercase, uppercase, number and not less than 8 characters.')
-            }
-            if (errorCode === 'auth/email-already-in-use') {
-                toast('Email already in use.')
-            }
-            if (errorCode === 'auth/invalid-email') {
-                toast('Invalid email address.');
-            }
-            if (errorCode === 'auth/operation-not-allowed') {
-                toast('Email/password accounts are not enabled.');
-            }
-            if (errorCode === 'auth/missing-password') {
-                toast('Password is required.');
-            }
-            if (errorCode === 'auth/internal-error') {
-                toast('An internal error occurred. Please try again.');
+            if (errorCode === 'auth/popup-blocked') {
+                alert('Popup blocked. Allow popups and try again.');
+            } else if (errorCode === 'auth/popup-closed-by-user') {
+                alert('Popup closed before completing the sign-in.');
+            } else if (errorCode === 'auth/account-exists-with-different-credential') {
+                alert('Account exists with a different sign-in method.');
             }
         });
-}
-
-const signInWithGoogle = () => {
-        signInWithPopup(auth, provider)
-        .then((result) => {
-        const user = result.user
-        console.log(user);
-        window.location.href = 'dashboard.html'
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-        if (errorCode === 'auth/popup-closed-by-user') {
-            alert('Popup closed by user before completing sign-in.');
-        } else if (errorCode === 'auth/cancelled-popup-request') {
-            alert('Popup request was cancelled.');
-        } else {
-            alert('An error occurred during sign-in. Please try again.');
-        }
-    })
-}
+};
 
 
 const signInWithGithub = () => {
