@@ -17,13 +17,33 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 
+const toast = (message, bgColor = "red", color = "white", fontWeight = "bold" , marginTop = "50px", borderRadius = "50px") => {
+    Toastify({
+        text: message,
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+            background: bgColor,
+            color: color,
+            fontWeight: fontWeight,
+            marginTop,
+            borderRadius,
+        },
+        onClick: function () {},
+    }).showToast();
+};
+
 const signUp = () => {
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     if (username === "" || email === "" || password === "") {
-        alert("Please fill in all fields");
+        toast("Please fill in all fields");
         return;
     }
     const userObject = {
@@ -37,8 +57,8 @@ const signUp = () => {
         .then((userCredential) => {
             const user = userCredential.user;
             console.log(user);
-            alert("User created successfully");
-            setTimeout(() => {
+            toast("User created successfully");
+            setInterval(() => {
                 window.location.href = "signin.html";
             }, 2000);
         })
@@ -47,28 +67,27 @@ const signUp = () => {
             console.log(errorCode);
 
             if (errorCode === 'auth/password-does-not-meet-requirements') {
-                alert('password must contain special character, lowercase, uppercase, number and not less than 8 characters.')
+                toast('password must contain special character, lowercase, uppercase, number and not less than 8 characters.')
             }
             if (errorCode === 'auth/email-already-in-use') {
-                alert('Email already in use.')
+                toast('Email already in use.')
             }
             if (errorCode === 'auth/invalid-email') {
-                alert('Invalid email address.');
+                toast('Invalid email address.');
             }
             if (errorCode === 'auth/operation-not-allowed') {
-                alert('Email/password accounts are not enabled.');
+                toast('Email/password accounts are not enabled.');
             }
             if (errorCode === 'auth/missing-password') {
-                alert('Password is required.');
+                toast('Password is required.');
             }
             if (errorCode === 'auth/internal-error') {
-                alert('An internal error occurred. Please try again.');
+                toast('An internal error occurred. Please try again.');
             }
         });
 }
 
 const signInWithGoogle = () => {
-    // alert('working')
         signInWithPopup(auth, provider)
         .then((result) => {
         const user = result.user
@@ -80,8 +99,17 @@ const signInWithGoogle = () => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
+        if (errorCode === 'auth/popup-closed-by-user') {
+            alert('Popup closed by user before completing sign-in.');
+        } else if (errorCode === 'auth/cancelled-popup-request') {
+            alert('Popup request was cancelled.');
+        } else {
+            alert('An error occurred during sign-in. Please try again.');
+        }
     })
 }
+
+
 
 window.signUp = signUp;
 window.signInWithGoogle = signInWithGoogle;
