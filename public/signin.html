@@ -22,17 +22,17 @@
             <form action="" class="form">
                 <h1>Login</h1>
             <div class="input-box">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username" required id="username">
                     <i class='bx bx-user'></i>
             </div>
             <div class="input-box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" required id="password">
                     <i class='bx bx-lock'></i>
             </div>
             <div class="forget-link">
                     <a href="#">Forget Password?</a>
             </div>
-                <button type="submit" class="btn">Login</button>
+                <button type="button" class="btn" onclick="signIn()">Login</button>
                 <p>or login with social platforms</p>
             <div class="social-icon">
                     <a href="#"><i class='bx bxl-google'></i></a>
@@ -44,4 +44,5 @@
         </div>
     </div>
 </body>
+<script type="module" src="signin.js"></script>
 </html>
