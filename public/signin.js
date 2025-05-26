@@ -41,7 +41,7 @@ const toast = (message, bgColor = "red", color = "white", fontWeight = "bold" , 
 
 const signIn = () => {
     const email = document.getElementById('mail').value;
-    const password = document.getElementById('pass').value;
+    const password = document.getElementById('password').value;
 
     if (email === "" || password === "") {
         alert('Input cannot be empty, fill it up')
