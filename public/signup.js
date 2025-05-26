@@ -89,7 +89,12 @@ const signInWithGoogle = () => {
                 alert("Invalid email address.");
             } else if (errorCode === "auth/too-many-requests") {
                 alert("Too many failed attempts. Try again later.");
-            } 
+            } else if( errorCode === "auth/unauthorized-domain") {
+                alert("Unauthorized domain. Please check your Firebase console settings.");
+            }
+            else {
+                alert("An error occurred. Please try again.");
+            }
         });
 }
 
