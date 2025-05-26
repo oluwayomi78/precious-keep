@@ -68,7 +68,7 @@ const signUp = () => {
 }
 
 const signInWithGoogle = () => {
-    alert('working')
+    // alert('working')
         signInWithPopup(auth, provider)
         .then((result) => {
         const user = result.user
