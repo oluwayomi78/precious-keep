@@ -69,8 +69,19 @@ const signUp = () => {
 
 const signInWithGoogle = () => {
     alert('working')
+        signInWithPopup(auth, provider)
+        .then((result) => {
+        const user = result.user
+        console.log(user);
+        window.location.href = 'dashboard.html'
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+    })
 }
-
 
 window.signUp = signUp;
 window.signInWithGoogle = signInWithGoogle;
