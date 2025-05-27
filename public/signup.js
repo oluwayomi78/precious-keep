@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, TwitterAuthProvider } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
 
 const firebaseConfig = {
@@ -16,6 +16,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
 
 
 const toast = (message, bgColor = "red", color = "white", fontWeight = "bold" , marginTop = "50px", borderRadius = "50px") => {
@@ -129,7 +130,28 @@ const signInWithGithub = () => {
         });
 }
 
+const signInWithTwitter = () => {
+    signInWithPopup(auth, twitterProvider)
+        .then((result) => {
+            const user = result.user;
+            console.log(user);
+            window.location.href = 'dashboard.html';
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            console.log(errorCode);
+            if (errorCode === 'auth/popup-closed-by-user') {
+                alert('Popup closed by user before completing sign-in.');
+            } else if (errorCode === 'auth/cancelled-popup-request') {
+                alert('Popup request was cancelled.');
+            } else {
+                alert('An error occurred during sign-in. Please try again.');
+            }
+        });
+}
+
 
 window.signUp = signUp;
 window.signInWithGoogle = signInWithGoogle;
 window.signInWithGithub = signInWithGithub;
+window.signInWithTwitter = signInWithTwitter;
