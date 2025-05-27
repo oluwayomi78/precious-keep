@@ -100,11 +100,11 @@ const signInWithGoogle = () => {
         const errorCode = error.code;
         console.log(errorCode);
         if (errorCode === 'auth/popup-closed-by-user') {
-            alert('Popup closed by user before completing sign-in.');
+            toast('Popup closed by user before completing sign-in.');
         } else if (errorCode === 'auth/cancelled-popup-request') {
-            alert('Popup request was cancelled.');
+            toast('Popup request was cancelled.');
         } else {
-            alert('An error occurred during sign-in. Please try again.');
+            toast('An error occurred during sign-in. Please try again.');
         }
     })
 }
@@ -121,11 +121,11 @@ const signInWithGithub = () => {
             const errorCode = error.code;
             console.log(errorCode);
             if (errorCode === 'auth/popup-closed-by-user') {
-                alert('Popup closed by user before completing sign-in.');
+                toast('Popup closed by user before completing sign-in.');
             } else if (errorCode === 'auth/cancelled-popup-request') {
-                alert('Popup request was cancelled.');
+                toast('Popup request was cancelled.');
             } else {
-                alert('An error occurred during sign-in. Please try again.');
+                toast('An error occurred during sign-in. Please try again.');
             }
         });
 }
@@ -141,11 +141,11 @@ const signInWithTwitter = () => {
             const errorCode = error.code;
             console.log(errorCode);
             if (errorCode === 'auth/popup-closed-by-user') {
-                alert('Popup closed by user before completing sign-in.');
+                toast('Popup closed by user before completing sign-in.');
             } else if (errorCode === 'auth/cancelled-popup-request') {
-                alert('Popup request was cancelled.');
+                toast('Popup request was cancelled.');
             } else {
-                alert('An error occurred during sign-in. Please try again.');
+                toast('An error occurred during sign-in. Please try again.');
             }
         });
 }
