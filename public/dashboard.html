@@ -1,18 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Keep Header</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <h1>Welcome to the Dashboard</h1>
-    <p>This is your dashboard where you can manage your notes.</p>
-    <div id="notes-container">
-        <h2>Your Notes</h2>
-        <ul id="notes-list">
-            <!-- Notes will be dynamically added here -->
-        </ul>
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        font-family: Arial, sans-serif;
+        background-color: #202124;
+        color: white;
+    }
+
+    .keep-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #202124;
+        padding: 10px 16px;
+        border-bottom: 1px solid #444;
+        flex-wrap: wrap;
+    }
+
+    .left-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 180px;
+    }
+
+    .menu-icon {
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .keep-icon {
+        height: 32px;
+    }
+
+    .keep-title {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+    .search-bar {
+        flex: 1;
+        max-width: 700px;
+        margin: 10px 20px;
+        background-color: #5f6368;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        padding: 6px 12px;
+    }
+
+    .search-bar input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 16px;
+        margin-left: 10px;
+        outline: none;
+    }
+
+    .search-icon {
+        font-size: 16px;
+    }
+
+    .right-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: nowrap;
+    }
+
+    .icon {
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .profile-pic {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+    }
+    .container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #303134;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        #jou{
+            margin: 20px auto;
+            padding: 20px;
+            /* border: 1px solid black; */
+            border-radius: 10px;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+            margin:auto; 
+            max-width:500px;
+            margin-top: 30px;
+        }
+        .answer {
+            padding:20px;
+            margin-left: 15px;
+            color: white;
+            margin-bottom: 30px;
+            /* background-color: white; */
+            border-radius: 10px;
+            color: black;
+            border: none;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+            width: 85%;
+            border: 2px solid black;
+        }
+
+        .answer p {
+            font-size: 18px;
+            color: white;
+        }
+
+        .answer button {
+            background-color: red;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #journalDate{
+            width:90%;
+            height:35px;
+            border-radius:10px;
+            padding-left: 20px;
+            margin-left: 14px;
+        }
+
+        #journalInput{
+            width:90%;
+            height:35px;
+            border-radius:10px;
+            padding:10px 0 0 20px;
+            margin-left: 14px;
+        }
+
+        #journalTitle{
+            width:90%;
+            height:35px;
+            border-radius:10px;
+            padding-left: 20px;
+            margin-left: 14px;
+        }
+        #journalImage {
+            display: none;
+        }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .container{
+            margin: auto;
+        }
+        .keep-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .search-bar {
+            width: 90%;
+            margin: 10px 0;
+        }
+
+        .right-section {
+            justify-content: flex-start;
+            gap: 12px;
+            width: 100%;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .keep-title {
+            font-size: 18px;
+        }
+
+        .search-bar input {
+            font-size: 14px;
+        }
+
+        .right-section {
+            justify-content: space-between;
+        }
+
+        .icon img {
+            height: 20px;
+            width: 20px;
+        }
+
+        .profile-pic {
+            height: 28px;
+            width: 28px;
+            margin-top: -190px;
+        }
+    }
+</style>
+    <header class="keep-header">
+        <div class="left-section">
+            <div class="menu-icon">&#9776;</div>
+            <img src="image/keep_2020q4_48dp.png" alt="Keep Icon" class="keep-icon" />
+            <span class="keep-title">Keep</span>
+        </div>
+
+        <div class="search-bar">
+            <img src="image/search_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            <input type="text" placeholder="Search" />
+        </div>
+
+        <div class="right-section">
+            <span class="icon"><img src="image/refresh_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
+            <span class="icon"><img src="image/grid_view_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
+            <span class="icon"><img src="image/settings_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
+            <span class="icon"><img src="image/apps_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
+            <img src="image/unnamed.png" alt="Profile" class="profile-pic" />
+        </div>
+    </header>
+    <div class="container" style="margin:auto; max-width:500px; margin-top: 30px;">
+        <h1 style="font-weight: bold;text-align: center;">Daily Wins Journal</h1>
+        <div class="flex" style="display: flex; flex-direction: column; gap: 20px;">
+            <input type="text" id="journalTitle" placeholder="Title"/>
+            <textarea id="journalInput" placeholder="Write about your daily wins..."></textarea>
+            <input type="date" id="journalDate"/>
+            <div style="display: flex; align-items: center; justify-content: center; border: 2px solid green;">
+                choose an image:
+                <input type="file" id="journalImage" accept="image/*"/>
+                <label for="journalImage" style="cursor: pointer; color: green; text-decoration: underline; margin-left: 14px;"><img src="image/image.svg" alt=""></label>
+            </div>
+            <div>
+
+                <button id="btn" onclick="addEntry()" style="width:90%; background-color:green;border:none; height:35px; border-radius:10px;color:white;font-weight:bold;margin-left: 20px;" >Add Entry</button>
+            </div>
+        </div>
     </div>
+    <div id="jou" style=""></div>
+</body>
+<script>
+        document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter')
+            addEntry();
+    })
+    const user = JSON.parse(localStorage.getItem('user')) || [];
+    console.log(user);
+    const display = () => {
+        jou.innerHTML = "";
+        // user.forEach((item, index) => {
+        //     jou.innerHTML += `
+        //     <div style="border: 1px solid black; padding: 10px; margin: 10px;">
+        //         <h3>${item.date}</h3>
+        //         <p>${item.entry}</p>
+        //         <button onclick="deleteEntry(${index})">Delete</button>
+        //     </div>
+        //     `;
+        // }) }
+
+
+        for (let i = 0; i < user.length; i++) {
+            jou.innerHTML += `
+            <div class="answer">
+                <p>${user[i].date}</p>
+                <p>${user[i].title}</p>
+                <p>${user[i].entry}</p>
+                <img src="${user[i].cardImg}" alt="Journal Image" style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;" />
+                <p style="color: gray; font-size: 12px;">Added on: ${new Date(user[i].date).toLocaleDateString()}</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <button onclick="editEntry(${i})" style="margin: 10px; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Edit</button>
+                <button onclick="deleteEntry(${i})" style="margin: 10px; padding: 10px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+                </div>
+                `
+        }
+    }
+
+    const addEntry = () => {
+        const date = document.getElementById('journalDate').value;
+        const title = document.getElementById('journalTitle').value;
+        const entry = document.getElementById('journalInput').value;
+        const journalImage = document.getElementById('journalImage')
+        const imgFile = journalImage.files[0]
+        if (date === "" || entry === "" || title === "") {
+            alert("Please fill in all fields");
+            return;
+        }
+        else {
+            const reader = new FileReader
+            reader.addEventListener("load",(e)=>{
+                const cardImg = e.target.result
+                const newEntry = {
+                date: date,
+                entry: entry,
+                title: title,
+                cardImg
+            };
+            user.push(newEntry);
+            localStorage.setItem('user', JSON.stringify(user));
+            console.log(user);
+            display();
+            document.getElementById('journalInput').value = "";
+            document.getElementById('journalTitle').value = "";
+            document.getElementById('journalDate').value = "";
+            })
+            reader.readAsDataURL(imgFile)
+        }
+
+    }
+    display();
+
+    const deleteEntry = (index) => {
+        user.splice(index, 1);
+        localStorage.setItem('user', JSON.stringify(user));
+        display();
+    }
+    const editEntry = (index) => {
+        const entry = user[index];
+        document.getElementById('journalDate').value = entry.date;
+        document.getElementById('journalInput').value = entry.entry;
+        document.getElementById('journalTitle').value = entry.title;
+        
+        user.splice(index, 1);
+        localStorage.setItem('user', JSON.stringify(user));
+        display();
+    }
+    
+    
+</script>
+<!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 </body>
 </html>
