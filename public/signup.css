@@ -171,3 +171,9 @@ body {
         padding: 30px;
     }
 }
+@media (max-width: 340px) {
+    .social-icon{
+
+    }
+}
+

@@ -27,6 +27,9 @@
         border-bottom: 1px solid #444;
         flex-wrap: wrap;
     }
+    .show{  
+    display: none;
+    }
 
     .left-section {
         display: flex;
@@ -241,9 +244,9 @@
         <h1 style="font-weight: bold;text-align: center;">Daily Wins Journal</h1>
         <div class="flex" style="display: flex; flex-direction: column; gap: 20px;">
             <input type="text" id="journalTitle" placeholder="Title"/>
-            <textarea id="journalInput" placeholder="Write about your daily wins..."></textarea>
-            <input type="date" id="journalDate"/>
-            <div style="display: flex; align-items: center; justify-content: center; border: 2px solid green;">
+            <textarea id="journalInput" placeóholder="Write about your daily wins..." class="show"></textarea>
+            <input type="date" id="journalDate" class="show"/>
+            <div class="show" style="display: flex; align-items: center; justify-content: center; border: 2px solid green;">
                 choose an image:
                 <input type="file" id="journalImage" accept="image/*"/>
                 <label for="journalImage" style="cursor: pointer; color: green; text-decoration: underline; margin-left: 14px;"><img src="image/image.svg" alt=""></label>
@@ -341,8 +344,22 @@
         localStorage.setItem('user', JSON.stringify(user));
         display();
     }
-    
-    
+    const journalTitle = document.getElementById("journalTitle")
+    const journalImage = document.getElementById("journalImage")
+    const journalInput = document.getElementById("journalInput")
+    const journalDate = document.getElementById("journalDate")
+    document.addEventListener("click", (e)=>{
+        if(e.target == journalTitle || e.target == journalImage || e.target == journalInput || e.target == journalDate){
+            document.querySelectorAll(".show").forEach((show)=>{
+                show.style.display = "block"
+            })
+        }
+        else{
+            document.querySelectorAll(".show").forEach((show)=>{
+                show.style.display = "none"
+            })
+        }
+    })
 </script>
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 </body>
