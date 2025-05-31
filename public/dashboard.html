@@ -252,7 +252,6 @@
         <div class="flex" style="display: flex; flex-direction: column; gap: 20px;">
             <input type="text" id="journalTitle" placeholder="Title"/>
             <textarea id="journalInput" placeóholder="Write about your daily wins..." class="show"></textarea>
-            <input type="date" id="journalDate" class="show"/>
             <div class="show" style="display: flex; align-items: center; justify-content: center; border: 2px solid green;">
                 choose an image:
                 <input type="file" id="journalImage" accept="image/*"/>
@@ -289,7 +288,6 @@
         for (let i = 0; i < user.length; i++) {
             jou.innerHTML += `
             <div class="answer">
-                <p>${user[i].date}</p>
                 <p>${user[i].title}</p>
                 <p>${user[i].entry}</p>
                 <img src="${user[i].cardImg}" alt="Journal Image" style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;" />
@@ -303,7 +301,6 @@
     }
 
     const addEntry = () => {
-        const date = document.getElementById('journalDate').value;
         const title = document.getElementById('journalTitle').value;
         const entry = document.getElementById('journalInput').value;
         const journalImage = document.getElementById('journalImage')
@@ -317,7 +314,6 @@
             reader.addEventListener("load",(e)=>{
                 const cardImg = e.target.result
                 const newEntry = {
-                date: date,
                 entry: entry,
                 title: title,
                 cardImg
@@ -343,7 +339,6 @@
     }
     const editEntry = (index) => {
         const entry = user[index];
-        document.getElementById('journalDate').value = entry.date;
         document.getElementById('journalInput').value = entry.entry;
         document.getElementById('journalTitle').value = entry.title;
         
