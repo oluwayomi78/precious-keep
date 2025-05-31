@@ -167,6 +167,13 @@
         #journalImage {
             display: none;
         }
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            padding: 16px;
+            margin-top: 16px;
+        }
     /* Responsive adjustments */
     @media (max-width: 768px) {
         .container{
@@ -257,7 +264,7 @@
             </div>
         </div>
     </div>
-    <div id="jou" style=""></div>
+    <div class="grid" id="jou"></div>
 </body>
 <script>
         document.addEventListener('keydown', (e) => {
