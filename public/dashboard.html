@@ -4,365 +4,435 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Google Keep Header</title>
-    <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
+    <title>Journal App - Google Keep Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            overflow-x: hidden;
-        font-family: Arial, sans-serif;
-        background-color: #202124;
-        color: white;
-    }
-
-    .keep-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #202124;
-        padding: 10px 16px;
-        border-bottom: 1px solid #444;
-        flex-wrap: wrap;
-    }
-    .show{  
-    display: none;
-    }
-
-    .left-section {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-width: 180px;
-    }
-
-    .menu-icon {
-        font-size: 22px;
-        cursor: pointer;
-    }
-
-    .keep-icon {
-        height: 32px;
-    }
-
-    .keep-title {
-        font-size: 22px;
-        font-weight: 500;
-    }
-
-    .search-bar {
-        flex: 1;
-        max-width: 700px;
-        margin: 10px 20px;
-        background-color: #5f6368;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        padding: 6px 12px;
-    }
-
-    .search-bar input {
-        flex: 1;
-        background: transparent;
-        border: none;
-        color: white;
-        font-size: 16px;
-        margin-left: 10px;
-        outline: none;
-    }
-
-    .search-icon {
-        font-size: 16px;
-    }
-
-    .right-section {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: nowrap;
-    }
-
-    .icon {
-        font-size: 18px;
-        cursor: pointer;
-    }
-
-    .profile-pic {
-        height: 32px;
-        width: 32px;
-        border-radius: 50%;
-    }
-    .container {
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #303134;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        #jou{
-            margin: 20px auto;
-            padding: 20px;
-            /* border: 1px solid black; */
-            border-radius: 10px;
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
-            margin:auto; 
-            max-width:500px;
-            margin-top: 30px;
-        }
-        .answer {
-            padding:20px;
-            margin-left: 15px;
-            color: white;
-            margin-bottom: 30px;
-            /* background-color: white; */
-            border-radius: 10px;
-            color: black;
-            border: none;
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-            width: 85%;
-            border: 2px solid black;
-        }
-
-        .answer p {
-            font-size: 18px;
-            color: white;
-        }
-
-        .answer button {
-            background-color: red;
-            color: white;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        #journalDate{
-            width:90%;
-            height:35px;
-            border-radius:10px;
-            padding-left: 20px;
-            margin-left: 14px;
-        }
-
-        #journalInput{
-            width:90%;
-            height:35px;
-            border-radius:10px;
-            padding:10px 0 0 20px;
-            margin-left: 14px;
-        }
-
-        #journalTitle{
-            width:90%;
-            height:35px;
-            border-radius:10px;
-            padding-left: 20px;
-            margin-left: 14px;
-        }
-        #journalImage {
-            display: none;
-        }
-        .grid{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-            padding: 16px;
-            margin-top: 16px;
-        }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .container{
-            margin: auto;
-        }
-        .keep-header {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f1f3f4;
+            display: flex;
             flex-direction: column;
-            align-items: flex-start;
         }
 
-        .search-bar {
-            width: 90%;
-            margin: 10px 0;
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 8px 16px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .right-section {
-            justify-content: flex-start;
-            gap: 12px;
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon,
+        .apps-icon,
+        .profile-icon {
+            font-size: 20px;
+            margin: 0 10px;
+            color: #5f6368;
+            cursor: pointer;
+        }
+
+        .logo {
+            height: 40px;
+            margin: 0 10px;
+        }
+
+        .nav-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #5f6368;
+        }
+
+        .nav-center {
+            flex: 1;
+            max-width: 500px;
+            padding: 0 20px;
+        }
+
+        .search-input {
             width: 100%;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-    }
-    .answer{
-        margin:10px auto;
-        border: 2px solid green;
-    }
-
-    @media (max-width: 480px) {
-        .keep-title {
-            font-size: 18px;
-        }
-
-        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            background-color: #f1f3f4;
+            border-radius: 8px;
             font-size: 14px;
         }
 
-        .right-section {
+        .search-input:focus {
+            outline: none;
+            background-color: #e8eaed;
+        }
+
+        .sidenav {
+            width: 250px;
+            background-color: #fff;
+            padding-top: 10px;
+            border-right: 1px solid #e0e0e0;
+            height: calc(100vh - 56px);
+            position: fixed;
+            top: 56px;
+            left: 0;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #202124;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: #f1f3f4;
+            border-radius: 0 25px 25px 0;
+        }
+
+        .nav-item i {
+            margin-right: 16px;
+            color: #5f6368;
+        }
+
+        .sidenav-backdrop {
+            display: none;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            margin: 30px auto 20px 270px;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            max-width: 600px;
+            margin-top: 20px;
+            margin-left: auto;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            box-shadow: inset 0 0 0 1px #e0e0e0;
+            font-size: 16px;
+            resize: none;
+        }
+
+        textarea {
+            min-height: 80px;
+            overflow: hidden;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label[for="journalImage"] {
+            display: inline-block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        label img {
+            width: 30px;
+            vertical-align: middle;
+        }
+
+        button#btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button#btn:hover {
+            background-color: #1669c1;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 0 auto 40px auto;
+            padding: 0 10px;
+            max-width: 1000px;
+            margin-left: auto;
+        }
+
+        .answer {
+            background-color: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            width: calc(50% - 8px);
+            break-inside: avoid;
+            font-size: 14px;
+        }
+
+        .answer img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .answer-buttons {
+            display: flex;
             justify-content: space-between;
+            margin-top: 10px;
         }
 
-        .icon img {
-            height: 20px;
-            width: 20px;
+        .answer-buttons button {
+            padding: 6px 12px;
+            font-size: 13px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
         }
 
-        .profile-pic {
-            height: 28px;
-            width: 28px;
-            margin-top: -190px;
+        .answer-buttons button:first-child {
+            background-color: #4caf50;
         }
-    }
-</style>
-    <header class="keep-header">
-        <div class="left-section">
-            <div class="menu-icon">&#9776;</div>
-            <img src="image/keep_2020q4_48dp.png" alt="Keep Icon" class="keep-icon" />
-            <span class="keep-title">Keep</span>
-        </div>
 
-        <div class="search-bar">
-            <img src="image/search_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-            <input type="text" placeholder="Search" />
-        </div>
+        .answer-buttons button:last-child {
+            background-color: #f44336;
+        }
 
-        <div class="right-section">
-            <span class="icon"><img src="image/refresh_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
-            <span class="icon"><img src="image/grid_view_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
-            <span class="icon"><img src="image/settings_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
-            <span class="icon"><img src="image/apps_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg" alt=""></span>
-            <img src="image/unnamed.png" alt="Profile" class="profile-pic" />
-        </div>
-    </header>
-    <div class="container" style="margin:auto; max-width:500px; margin-top: 30px;">
-        <h1 style="font-weight: bold;text-align: center;">Daily Wins Journal</h1>
-        <div class="flex" style="display: flex; flex-direction: column; gap: 20px;">
-            <input type="text" id="journalTitle" placeholder="Title"/>
-            <textarea id="journalInput" placeóholder="Write about your daily wins..." class="show"></textarea>
-            <div class="show" style="display: flex; align-items: center; justify-content: center; border: 2px solid green;">
-                choose an image:
-                <input type="file" id="journalImage" accept="image/*"/>
-                <label for="journalImage" style="cursor: pointer; color: green; text-decoration: underline; margin-left: 14px;"><img src="image/image.svg" alt=""></label>
-            </div>
-            <div>
+        .answer-buttons button:hover:first-child {
+            background-color: #3e8e41;
+        }
 
-                <button id="btn" onclick="addEntry()" style="width:90%; background-color:green;border:none; height:35px; border-radius:10px;color:white;font-weight:bold;margin-left: 20px;" >Add Entry</button>
-            </div>
+        .answer-buttons button:hover:last-child {
+            background-color: #d32f2f;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .answer {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidenav {
+                transform: translateX(-110%);
+                z-index: 200;
+                position: fixed;
+            }
+
+            .sidenav.open {
+                transform: translateX(0);
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.12);
+            }
+
+            .sidenav-backdrop {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.2);
+                z-index: 150;
+            }
+
+            .container,
+            .grid {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .answer {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <i class="fas fa-bars menu-icon" id="menuToggle"></i>
+            <img src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" class="logo"
+                alt="Logo" />
+            <span class="nav-title">Keep</span>
         </div>
+        <div class="nav-center">
+            <input type="text" class="search-input" placeholder="Search">
+        </div>
+        <div class="nav-right">
+            <i class="fas fa-th apps-icon"></i>
+            <i class="fas fa-user-circle profile-icon" id="profileIcon"></i>    
+        </div>
+    </nav>
+
+    <div class="sidenav-backdrop" id="sidenavBackdrop"></div>
+    <div class="sidenav" id="sidenav">
+        <div class="nav-item active"><i class="fas fa-lightbulb"></i><span>Notes</span></div>
+        <div class="nav-item"><i class="fas fa-bell"></i><span>Reminders</span></div>
+        <div class="nav-item"><i class="fas fa-archive"></i><span>Archive</span></div>
+        <div class="nav-item"><i class="fas fa-trash"></i><span>Trash</span></div>
     </div>
-    <div class="grid" id="jou"></div>
-</body>
-<script>
-        document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter')
-            addEntry();
-    })
-    const user = JSON.parse(localStorage.getItem('user')) || [];
-    console.log(user);
-    const display = () => {
-        jou.innerHTML = "";
-        // user.forEach((item, index) => {
-        //     jou.innerHTML += `
-        //     <div style="border: 1px solid black; padding: 10px; margin: 10px;">
-        //         <h3>${item.date}</h3>
-        //         <p>${item.entry}</p>
-        //         <button onclick="deleteEntry(${index})">Delete</button>
-        //     </div>
-        //     `;
-        // }) }
+
+    <div class="container">
+        <input type="text" id="journalTitle" placeholder="Title" />
+        <textarea id="journalInput" placeholder="Take a note..."></textarea>
+        <div class="image-upload">
+            <label for="journalImage">
+                <img src="https://cdn-icons-png.flaticon.com/512/1829/1829586.png" alt="Upload Icon" />
+                Upload an image
+            </label>
+            <input type="file" id="journalImage" accept="image/*" />
+        </div>
+        <button id="btn" onclick="addEntry()">Add Entry</button>
+    </div>
+    <div class="container">
+
+        <div class="grid" id="jou"></div>
+    </div>
+
+    <script type="module" src="signin.js"></script>
+    <script>
+        const jou = document.getElementById("jou");
+        const journalTitle = document.getElementById("journalTitle");
+        const journalInput = document.getElementById("journalInput");
+        const journalImage = document.getElementById("journalImage");
+        let user = JSON.parse(localStorage.getItem("user")) || [];
 
 
-        for (let i = 0; i < user.length; i++) {
-            jou.innerHTML += `
-            <div class="answer">
-                <p>${user[i].title}</p>
-                <p>${user[i].entry}</p>
-                <img src="${user[i].cardImg}" alt="Journal Image" style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;" />
-                <p style="color: gray; font-size: 12px;">Added on: ${new Date(user[i].date).toLocaleDateString()}</p>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                <button onclick="editEntry(${i})" style="margin: 10px; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Edit</button>
-                <button onclick="deleteEntry(${i})" style="margin: 10px; padding: 10px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
-                </div>
-                `
-        }
-    }
+        const display = () => {
+            jou.innerHTML = "";
+            user.forEach((entry, i) => {
+                jou.innerHTML += `
+        <div class="answer">
+            <p><strong>${entry.title}</strong></p>
+            <p>${entry.entry}</p>
+            ${entry.cardImg ? `<img src="${entry.cardImg}" alt="Journal Image"/>` : ""}
+            <p style="color: gray; font-size: 12px;">Added: ${new Date(entry.date).toLocaleDateString()}</p>
+            <div class="answer-buttons">
+                <button onclick="editEntry(${i})">Edit</button>
+                <button onclick="deleteEntry(${i})">Delete</button>
+        </div>
+            </div>
+        `;
+            });
+        };
 
-    const addEntry = () => {
-        const title = document.getElementById('journalTitle').value;
-        const entry = document.getElementById('journalInput').value;
-        const journalImage = document.getElementById('journalImage')
-        const imgFile = journalImage.files[0]
-        if (date === "" || entry === "" || title === "") {
-            alert("Please fill in all fields");
-            return;
-        }
-        else {
-            const reader = new FileReader
-            reader.addEventListener("load",(e)=>{
-                const cardImg = e.target.result
-                const newEntry = {
-                entry: entry,
-                title: title,
-                cardImg
+        const addEntry = () => {
+            const title = journalTitle.value.trim();
+            const entry = journalInput.value.trim();
+            const imgFile = journalImage.files[0];
+
+            if (!title || !entry) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            const saveEntry = (cardImg = "") => {
+                const newEntry = { title, entry, cardImg, date: new Date().toISOString() };
+                user.push(newEntry);
+                localStorage.setItem("user", JSON.stringify(user));
+                display();
+                journalTitle.value = "";
+                journalInput.value = "";
+                journalImage.value = "";
             };
-            user.push(newEntry);
-            localStorage.setItem('user', JSON.stringify(user));
-            console.log(user);
+
+            if (imgFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => saveEntry(e.target.result);
+                reader.readAsDataURL(imgFile);
+            } else {
+                saveEntry();
+            }
+        };
+
+        const deleteEntry = (index) => {
+            user.splice(index, 1);
+            localStorage.setItem("user", JSON.stringify(user));
             display();
-            document.getElementById('journalInput').value = "";
-            document.getElementById('journalTitle').value = "";
-            document.getElementById('journalDate').value = "";
-            })
-            reader.readAsDataURL(imgFile)
-        }
+        };
 
-    }
-    display();
+        const editEntry = (index) => {
+            const entry = user[index];
+            journalTitle.value = entry.title;
+            journalInput.value = entry.entry;
+            user.splice(index, 1);
+            localStorage.setItem("user", JSON.stringify(user));
+            display();
+        };
 
-    const deleteEntry = (index) => {
-        user.splice(index, 1);
-        localStorage.setItem('user', JSON.stringify(user));
+        journalInput.addEventListener("input", () => {
+            journalInput.style.height = "auto";
+            journalInput.style.height = journalInput.scrollHeight + "px";
+        });
+
+
+
+        const sidenav = document.getElementById("sidenav");
+        const menuToggle = document.getElementById("menuToggle");
+        const backdrop = document.getElementById("sidenavBackdrop");
+
+        menuToggle.addEventListener("click", () => {
+            sidenav.classList.toggle("open");
+            backdrop.style.display = sidenav.classList.contains("open") ? "block" : "none";
+            document.body.classList.toggle("sidenav-open");
+        });
+
+        backdrop.addEventListener("click", () => {
+            sidenav.classList.remove("open");
+            backdrop.style.display = "none";
+            document.body.classList.remove("sidenav-open");
+        });
+
+        document.querySelectorAll('.sidenav .nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 900) {
+                    sidenav.classList.remove('open');
+                    backdrop.style.display = "none";
+                    document.body.classList.remove("sidenav-open");
+                }
+            });
+        });
+
         display();
-    }
-    const editEntry = (index) => {
-        const entry = user[index];
-        document.getElementById('journalInput').value = entry.entry;
-        document.getElementById('journalTitle').value = entry.title;
         
-        user.splice(index, 1);
-        localStorage.setItem('user', JSON.stringify(user));
-        display();
-    }
-    const journalTitle = document.getElementById("journalTitle")
-    const journalImage = document.getElementById("journalImage")
-    const journalInput = document.getElementById("journalInput")
-    const journalDate = document.getElementById("journalDate")
-    document.addEventListener("click", (e)=>{
-        if(e.target == journalTitle || e.target == journalImage || e.target == journalInput || e.target == journalDate){
-            document.querySelectorAll(".show").forEach((show)=>{
-                show.style.display = "block"
-            })
-        }
-        else{
-            document.querySelectorAll(".show").forEach((show)=>{
-                show.style.display = "none"
-            })
-        }
-    })
-</script>
-<!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+    </script>
 </body>
+
 </html>

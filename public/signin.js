@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, TwitterAuthProvider } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, TwitterAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
 
 const firebaseConfig = {
@@ -18,6 +18,19 @@ const provider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 const twitterProvider = new TwitterAuthProvider();
 
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, you can access user information here
+        const userEmail = user.email;
+        console.log("User is signed in:", userEmail);
+        document.getElementById('profileIcon').innerHTML = `<img src="${user.photoURL}" alt="Profile" class="profile-image">`;
+    } else {
+        // User is signed out
+        console.log("No user is signed in.");
+        document.getElementById('profileIcon').innerHTML = `<i class="fas fa-user-circle profile-icon"></i>`;
+    }
+});
 
 const toast = (message, bgColor = "red", color = "white", fontWeight = "bold" , marginTop = "50px", borderRadius = "50px") => {
     Toastify({
