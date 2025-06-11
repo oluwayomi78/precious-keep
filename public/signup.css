@@ -171,9 +171,16 @@ body {
         padding: 30px;
     }
 }
-@media (max-width: 340px) {
+@media (max-width: 317px) {
     .social-icon{
-
+        font-size: 1px;
+        padding: 8px;
+        border-radius: 8px;
+    }
+    .social-icon div{
+        font-size: 20px;
+        padding: 8px;
+        margin: 0 5px;
+        border-radius: 8px;
     }
 }
-
