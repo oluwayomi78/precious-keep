@@ -21,12 +21,10 @@ const twitterProvider = new TwitterAuthProvider();
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // User is signed in, you can access user information here
         const userEmail = user.email;
         console.log("User is signed in:", userEmail);
-        document.getElementById('profileIcon').innerHTML = `<img src="${user.photoURL}" alt="Profile" class="profile-image">`;
+        document.getElementById('profileIcon').innerHTML = `<img src="${user.photoURL}" alt="Profile" class="profile-image" style="width: 40px; height: 40px; border-radius: 50%;">`;
     } else {
-        // User is signed out
         console.log("No user is signed in.");
         document.getElementById('profileIcon').innerHTML = `<i class="fas fa-user-circle profile-icon"></i>`;
     }

@@ -17,6 +17,7 @@
             background-color: #f1f3f4;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         .navbar {
@@ -113,19 +114,30 @@
 
         .sidenav-backdrop {
             display: none;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 150;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            flex: 1;
         }
 
         .container {
             background-color: white;
             padding: 20px;
-            margin: 30px auto 20px 270px;
-            max-width: 600px;
+            margin: 20px auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             position: relative;
             max-width: 600px;
-            margin-top: 20px;
-            margin-left: auto;
         }
 
         input[type="text"],
@@ -150,15 +162,22 @@
             display: none;
         }
 
-        label[for="journalImage"] {
-            display: inline-block;
+        .image-upload {
             margin: 10px 0;
-            cursor: pointer;
         }
 
-        label img {
-            width: 30px;
-            vertical-align: middle;
+        .image-upload label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .image-upload img {
+            width: 24px;
+            height: 24px;
         }
 
         button#btn {
@@ -170,6 +189,7 @@
             cursor: pointer;
             font-weight: bold;
             margin-top: 10px;
+            width: 100%;
         }
 
         button#btn:hover {
@@ -177,35 +197,38 @@
         }
 
         .grid {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 16px;
-            margin: 0 auto 40px auto;
-            padding: 0 10px;
-            max-width: 1000px;
-            margin-left: auto;
+            margin: 20px auto;
+            width: 100%;
         }
 
         .answer {
             background-color: white;
-            padding: 12px;
+            padding: 16px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            width: calc(50% - 8px);
             break-inside: avoid;
             font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .answer img {
             max-width: 100%;
             border-radius: 8px;
             margin-top: 10px;
+            object-fit: cover;
+            max-height: 200px;
         }
 
         .answer-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            margin-top: auto;
+            padding-top: 10px;
         }
 
         .answer-buttons button {
@@ -215,10 +238,12 @@
             border-radius: 4px;
             cursor: pointer;
             color: white;
+            flex: 1;
+            margin: 0 4px;
         }
 
         .answer-buttons button:first-child {
-            background-color: #4caf50;
+            background-color: #1a73e8;
         }
 
         .answer-buttons button:last-child {
@@ -226,33 +251,23 @@
         }
 
         .answer-buttons button:hover:first-child {
-            background-color: #3e8e41;
+            background-color: #1669c1;
         }
 
         .answer-buttons button:hover:last-child {
             background-color: #d32f2f;
         }
-        @media (max-width: 600px) {
-            .container {
-                margin-left: 20px;
-                margin-right: 20px;
-            }
 
-            .grid {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .answer {
-                width: 100%;
-            }
+        .timestamp {
+            color: gray;
+            font-size: 12px;
+            margin-top: 8px;
         }
 
         @media (max-width: 900px) {
             .sidenav {
-                transform: translateX(-110%);
+                transform: translateX(-100%);
                 z-index: 200;
-                position: fixed;
             }
 
             .sidenav.open {
@@ -261,24 +276,35 @@
             }
 
             .sidenav-backdrop {
-                display: block;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.2);
-                z-index: 150;
+                top: 56px;
             }
 
-            .container,
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-center {
+                display: none;
+            }
+
+            .nav-title {
+                font-size: 18px;
+            }
+
+            .container {
+                margin: 10px;
+            }
+
             .grid {
-                margin-left: 20px;
-                margin-right: 20px;
+                grid-template-columns: 1fr;
             }
+        }
 
-            .answer {
-                width: 100%;
+        @media (min-width: 901px) {
+            .sidenav-backdrop {
+                display: none !important;
             }
         }
     </style>
@@ -297,7 +323,7 @@
         </div>
         <div class="nav-right">
             <i class="fas fa-th apps-icon"></i>
-            <i class="fas fa-user-circle profile-icon" id="profileIcon"></i>    
+            <div id="profileIcon"></div>
         </div>
     </nav>
 
@@ -309,24 +335,23 @@
         <div class="nav-item"><i class="fas fa-trash"></i><span>Trash</span></div>
     </div>
 
-    <div class="container">
-        <input type="text" id="journalTitle" placeholder="Title" />
-        <textarea id="journalInput" placeholder="Take a note..."></textarea>
-        <div class="image-upload">
-            <label for="journalImage">
-                <img src="https://cdn-icons-png.flaticon.com/512/1829/1829586.png" alt="Upload Icon" />
-                Upload an image
-            </label>
-            <input type="file" id="journalImage" accept="image/*" />
+    <div class="main-content">
+        <div class="container">
+            <input type="text" id="journalTitle" placeholder="Title" />
+            <textarea id="journalInput" placeholder="Take a note..."></textarea>
+            <div class="image-upload">
+                <label for="journalImage">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1829/1829586.png" alt="Upload Icon" />
+                    Upload an image
+                </label>
+                <input type="file" id="journalImage" accept="image/*" />
+            </div>
+            <button id="btn" onclick="addEntry()">Add Entry</button>
         </div>
-        <button id="btn" onclick="addEntry()">Add Entry</button>
-    </div>
-    <div class="container">
 
         <div class="grid" id="jou"></div>
     </div>
 
-    <script type="module" src="signin.js"></script>
     <script>
         const jou = document.getElementById("jou");
         const journalTitle = document.getElementById("journalTitle");
@@ -334,22 +359,21 @@
         const journalImage = document.getElementById("journalImage");
         let user = JSON.parse(localStorage.getItem("user")) || [];
 
-
         const display = () => {
             jou.innerHTML = "";
             user.forEach((entry, i) => {
                 jou.innerHTML += `
-        <div class="answer">
-            <p><strong>${entry.title}</strong></p>
-            <p>${entry.entry}</p>
-            ${entry.cardImg ? `<img src="${entry.cardImg}" alt="Journal Image"/>` : ""}
-            <p style="color: gray; font-size: 12px;">Added: ${new Date(entry.date).toLocaleDateString()}</p>
-            <div class="answer-buttons">
-                <button onclick="editEntry(${i})">Edit</button>
-                <button onclick="deleteEntry(${i})">Delete</button>
-        </div>
-            </div>
-        `;
+                <div class="answer">
+                    <p><strong>${entry.title || 'Untitled'}</strong></p>
+                    <p>${entry.entry || 'No content'}</p>
+                    ${entry.cardImg ? `<img src="${entry.cardImg}" alt="Journal Image"/>` : ""}
+                    <p class="timestamp">Added: ${new Date(entry.date).toLocaleString()}</p>
+                    <div class="answer-buttons">
+                        <button onclick="editEntry(${i})">Edit</button>
+                        <button onclick="deleteEntry(${i})">Delete</button>
+                    </div>
+                </div>
+                `;
             });
         };
 
@@ -358,19 +382,25 @@
             const entry = journalInput.value.trim();
             const imgFile = journalImage.files[0];
 
-            if (!title || !entry) {
-                alert("Please fill in all fields");
+            if (title === "" && entry === "") {
+                alert("Please add a title or content");
                 return;
             }
 
             const saveEntry = (cardImg = "") => {
-                const newEntry = { title, entry, cardImg, date: new Date().toISOString() };
+                const newEntry = { 
+                    title, 
+                    entry, 
+                    cardImg, 
+                    date: new Date().toISOString() 
+                };
                 user.push(newEntry);
                 localStorage.setItem("user", JSON.stringify(user));
                 display();
                 journalTitle.value = "";
                 journalInput.value = "";
                 journalImage.value = "";
+                journalInput.style.height = "auto";
             };
 
             if (imgFile) {
@@ -383,26 +413,28 @@
         };
 
         const deleteEntry = (index) => {
-            user.splice(index, 1);
-            localStorage.setItem("user", JSON.stringify(user));
-            display();
+            if (confirm("Are you sure you want to delete this entry?")) {
+                user.splice(index, 1);
+                localStorage.setItem("user", JSON.stringify(user));
+                display();
+            }
         };
 
         const editEntry = (index) => {
             const entry = user[index];
-            journalTitle.value = entry.title;
-            journalInput.value = entry.entry;
+            journalTitle.value = entry.title || "";
+            journalInput.value = entry.entry || "";
             user.splice(index, 1);
             localStorage.setItem("user", JSON.stringify(user));
             display();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        journalInput.addEventListener("input", () => {
-            journalInput.style.height = "auto";
-            journalInput.style.height = journalInput.scrollHeight + "px";
+
+        journalInput.addEventListener("input", function() {
+            this.style.height = "auto";
+            this.style.height = (this.scrollHeight) + "px";
         });
-
-
 
         const sidenav = document.getElementById("sidenav");
         const menuToggle = document.getElementById("menuToggle");
@@ -411,13 +443,11 @@
         menuToggle.addEventListener("click", () => {
             sidenav.classList.toggle("open");
             backdrop.style.display = sidenav.classList.contains("open") ? "block" : "none";
-            document.body.classList.toggle("sidenav-open");
         });
 
         backdrop.addEventListener("click", () => {
             sidenav.classList.remove("open");
             backdrop.style.display = "none";
-            document.body.classList.remove("sidenav-open");
         });
 
         document.querySelectorAll('.sidenav .nav-item').forEach(item => {
@@ -425,13 +455,11 @@
                 if (window.innerWidth <= 900) {
                     sidenav.classList.remove('open');
                     backdrop.style.display = "none";
-                    document.body.classList.remove("sidenav-open");
                 }
             });
         });
 
         display();
-        
     </script>
 </body>
 
